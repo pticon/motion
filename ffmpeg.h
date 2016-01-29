@@ -5,6 +5,7 @@
 #include <errno.h>
 
 #ifdef FFMPEG_NEW_INCLUDES
+#include <libavcodec/avcodec.h>
 #include <libavformat/avformat.h>
 #else
 #include <avformat.h>

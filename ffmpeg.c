@@ -374,7 +374,7 @@ static AVOutputFormat *get_oformat(const char *codec, char *filename)
 #endif
         /* Manually override the codec id. */
         if (of)
-            of->video_codec = CODEC_ID_MSMPEG4V2;
+            of->video_codec = AV_CODEC_ID_MSMPEG4V2;
 
     } else if (strcmp(codec, "swf") == 0) {
         ext = ".swf";
@@ -390,7 +390,7 @@ static AVOutputFormat *get_oformat(const char *codec, char *filename)
 #else        
         of = av_guess_format("flv", NULL, NULL);
 #endif        
-        of->video_codec = CODEC_ID_FLV1;
+        of->video_codec = AV_CODEC_ID_FLV1;
     } else if (strcmp(codec, "ffv1") == 0) {
         ext = ".avi";
 #ifdef GUESS_NO_DEPRECATED
@@ -403,7 +403,7 @@ static AVOutputFormat *get_oformat(const char *codec, char *filename)
          * Requires strict_std_compliance to be <= -2
          */
         if (of)
-            of->video_codec = CODEC_ID_FFV1;
+            of->video_codec = AV_CODEC_ID_FFV1;
 
     } else if (strcmp(codec, "mov") == 0) {
         ext = ".mov";
@@ -499,7 +499,7 @@ struct ffmpeg *ffmpeg_open(char *ffmpeg_video_codec, char *filename,
 
     /* Create a new video stream and initialize the codecs. */
     ffmpeg->video_st = NULL;
-    if (ffmpeg->oc->oformat->video_codec != CODEC_ID_NONE) {
+    if (ffmpeg->oc->oformat->video_codec != AV_CODEC_ID_NONE) {
 #if defined FF_API_NEW_AVIO 
         ffmpeg->video_st = avformat_new_stream(ffmpeg->oc, NULL /* Codec */);
 #else
@@ -526,7 +526,7 @@ struct ffmpeg *ffmpeg_open(char *ffmpeg_video_codec, char *filename,
 #else
     c->codec_type = AVMEDIA_TYPE_VIDEO;
 #endif    
-    is_mpeg1      = c->codec_id == CODEC_ID_MPEG1VIDEO;
+    is_mpeg1      = c->codec_id == AV_CODEC_ID_MPEG1VIDEO;
 
     if (strcmp(ffmpeg_video_codec, "ffv1") == 0)
         c->strict_std_compliance = -2;
